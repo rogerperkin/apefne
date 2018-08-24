@@ -1,0 +1,5 @@
+{% for cmd in command_list %}
+
+{{ inventory_hostname }} : {{ showoutput.stdout[loop.index0] }}
+
+{% endfor %}
