@@ -35,6 +35,6 @@
 
    - name: "Put all the files together into one nice text file"
      template: 
-       src: clock_template.j2 
+       src: ~/templates/clock_template.j2 
        dest: "~/backups/{{hostvars.localhost.DTG}}/{{ inventory_hostname }}-{{hostvars.localhost.DTG}}-showoutput.txt"
 
