@@ -2,7 +2,7 @@
 
 A collection of Ansible Playbooks for use by Network Engineers 
 
-How to use these playbooks
+## How to use these playbooks
 
 Clone this repository into your local machine, update the hosts file 
 
