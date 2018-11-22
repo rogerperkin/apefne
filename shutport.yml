@@ -1,0 +1,61 @@
+---
+#Playbook to shut and no shut a port from provided inputs 
+
+- hosts: localhost
+  gather_facts: false
+
+  vars_prompt:
+  - name: "switch"
+    prompt: "Enter the Switch Name"
+    private: no
+
+  tasks:
+   - add_host:
+       name: "{{ switch }}"
+       groups: switch_to_configure
+
+- hosts: switch_to_configure
+  gather_facts: false
+
+  vars_prompt:
+  - name: "interface"
+    prompt: "Enter the Interface Name"
+    private: no 
+
+  tasks: 
+  - name: Shut the Port 
+    ios_config:
+      lines:
+        - shutdown
+      parents: interface {{ interface }}
+    
+  - debug: 
+      msg: "Interface {{ interface }} is shut - Pause for 3 seconds }}"
+
+  - pause: seconds=5
+
+  - name: UnShut the Port 
+    ios_config:
+      lines:
+        - no shutdown
+      parents: interface {{ interface }}
+
+  - debug: 
+      msg: "Interface {{ interface }} has been bounced"
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
