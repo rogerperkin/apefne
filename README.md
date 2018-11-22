@@ -24,6 +24,10 @@ https://docs.ansible.com/ansible/2.6/user_guide/playbooks_prompts.html
 This playbook when run will pull the configurations from every device in the play and save the config into a daily created folder. It will also run a list of defined show commands and put all the show outputs into a single per device file. 
 You will end up with a folder created for every day you run this playbook containing the device config and the device show ouputs 
 
+This playbook also utilises the template.j2 file to get all the show outputs into a tidy format
+
+
+
 
 
 
