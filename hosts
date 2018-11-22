@@ -1,0 +1,24 @@
+## GROCONTINENTAL HOST FILE 
+
+[ALL:vars]
+ansible_user=
+ansible_ssh_pass=
+ansible_pass=
+ansible_auth_pass=
+ansibe_become_pass=
+ansible_become=yes
+ansible_become_method=enable
+ansible_network_os=ios
+ansible_connection=network_cli
+
+[CORE]
+CORE-SW1 ansible_host=192.168.10.1
+
+[ACCESS]
+ACCESS-SW1 ansible_host=102.168.20.1
+
+
+[ALL:children]
+CORE
+ACCESS
+
