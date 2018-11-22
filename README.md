@@ -15,6 +15,7 @@ This playbook when run will prompt you for a switch name and then an interface n
 This playbook was developed for a customer who had a lot of ageing access points that needed to be regularly bounced. The playbook can easily be integrated into Tower. But the main concpets of this playbook are for you to grasp the vars_prompt input and also basic Cisco interface configuration commands 
 
 https://docs.ansible.com/ansible/2.4/ios_interface_module.html
+https://docs.ansible.com/ansible/2.6/user_guide/playbooks_prompts.html
 
 
 
