@@ -26,6 +26,17 @@ You will end up with a folder created for every day you run this playbook contai
 
 This playbook also utilises the template.j2 file to get all the show outputs into a tidy format
 
+In the vars_command list simply uncomment the commands you want to run - or add your own depending on your specific requirements
+
+      - show spanning-tree blocked
+      - show switch
+      - show log
+    #  - show environment all
+    #  - show ip ospf int brief 
+    #  - show ip ospf neigh 
+    #  - show cdp neighbors detail
+
+
 
 
 
