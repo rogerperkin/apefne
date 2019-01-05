@@ -19,7 +19,7 @@
       path: ~/apefne/backups/{{hostvars.localhost.DTG}}
       state: directory
 
-- hosts: ALL
+- hosts: CSR-Routers
   connection: local
   gather_facts: false
 
