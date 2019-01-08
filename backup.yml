@@ -30,10 +30,10 @@
          - show run
      register: config
 
-   - name: Save output to ~/apefne/backups/
+   - name: Save output to /etc/ansible/backups
      copy:
        content: "{{config.stdout[0]}}"
-       dest: "~/apefne/backups/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
+       dest: "/etc/ansible/backups/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
 
 - hosts: ALL
   gather_facts: false
