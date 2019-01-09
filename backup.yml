@@ -1,26 +1,7 @@
 ---
 # Playbook to Backup all config and produce show outputs
 
-- hosts: localhost
-  gather_facts: false
-  
-  tasks:
-   - name: Get ansible date/time facts
-     setup:
-       filter: "ansible_date_time"
-       gather_subset: "!all"
-
-   - name: Store DTG as fact
-     set_fact:
-       DTG: "{{ ansible_date_time.date }}"
-
-   - name: Create Directory {{hostvars.localhost.DTG}} 
-     file: 
-      path: ~/apefne/backups/{{hostvars.localhost.DTG}}
-      state: directory
-
 - hosts: ALL
-  connection: local
   gather_facts: false
 
   tasks:
@@ -33,7 +14,7 @@
    - name: Save output to ~/apefne/backups/
      copy:
        content: "{{config.stdout[0]}}"
-       dest: "~/apefne/backups/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
+       dest: "/tmp/{{ansible_hostname}}-config.txt"
 
 - hosts: ALL
   gather_facts: false
