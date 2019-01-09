@@ -16,7 +16,7 @@
 
    - name: Create Directory {{hostvars.localhost.DTG}} 
      file: 
-      path: ~/apefne/backups/{{hostvars.localhost.DTG}}
+      path: ~/tmp/{{hostvars.localhost.DTG}}
       state: directory
 
 - hosts: CSR-Routers
@@ -33,7 +33,7 @@
    - name: Save output to /etc/ansible/backups
      copy:
        content: "{{config.stdout[0]}}"
-       dest: "/etc/ansible/backups/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
+       dest: "/tmp/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
 
 - hosts: ALL
   gather_facts: false
