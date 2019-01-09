@@ -30,42 +30,8 @@
          - show run
      register: config
 
-   - name: Save output to /etc/ansible/backups
+   - name: Save output to /tmp
      copy:
        content: "{{config.stdout[0]}}"
-       dest: "/tmp/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
+       dest: "~/tmp/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
 
-- hosts: ALL
-  gather_facts: false
-
-  vars:
-    command_list:
-      - show etherchannel summary 
-      - show cdp neigh 
-      - show cdp neigh detail
-      - show spanning-tree vlan 1
-      - show spanning-tree vlan 3
-      - show spanning-tree blocked
-      - show switch
-      - show log
-    #  - show environment all
-    #  - show ip ospf int brief 
-    #  - show ip ospf neigh 
-    #  - show cdp neighbors detail
-    #  - show clock
-    #  - show users
-    #  - show boot
-    #  - show int status | inc connected
-    #  - show arp
-    #  - show ip interface brief | exc admin
-
-  tasks:
-   - name: Run the SHOW commands and save output 
-     ios_command:
-       commands: "{{ command_list }}"
-     register: showoutput
-
-   - name: "Put all the files together into one nice text file"
-     template: 
-       src: template.j2 
-       dest: "~/apefne/backups/{{hostvars.localhost.DTG}}/{{ inventory_hostname }}-{{hostvars.localhost.DTG}}-showoutput.txt"
