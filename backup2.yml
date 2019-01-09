@@ -1,0 +1,71 @@
+---
+# Playbook to Backup all config and produce show outputs
+
+- hosts: localhost
+  gather_facts: false
+  
+  tasks:
+   - name: Get ansible date/time facts
+     setup:
+       filter: "ansible_date_time"
+       gather_subset: "!all"
+
+   - name: Store DTG as fact
+     set_fact:
+       DTG: "{{ ansible_date_time.date }}"
+
+   - name: Create Directory {{hostvars.localhost.DTG}} 
+     file: 
+      path: ~/apefne/backups/{{hostvars.localhost.DTG}}
+      state: directory
+
+- hosts: CSR-Routers
+  connection: local
+  gather_facts: false
+
+  tasks:
+   - name: Show Run on Device
+     ios_command:
+       commands:
+         - show run
+     register: config
+
+   - name: Save output to /etc/ansible/backups
+     copy:
+       content: "{{config.stdout[0]}}"
+       dest: "/etc/ansible/backups/{{hostvars.localhost.DTG}}/{{inventory_hostname}}-{{hostvars.localhost.DTG}}-config.txt"
+
+- hosts: ALL
+  gather_facts: false
+
+  vars:
+    command_list:
+      - show etherchannel summary 
+      - show cdp neigh 
+      - show cdp neigh detail
+      - show spanning-tree vlan 1
+      - show spanning-tree vlan 3
+      - show spanning-tree blocked
+      - show switch
+      - show log
+    #  - show environment all
+    #  - show ip ospf int brief 
+    #  - show ip ospf neigh 
+    #  - show cdp neighbors detail
+    #  - show clock
+    #  - show users
+    #  - show boot
+    #  - show int status | inc connected
+    #  - show arp
+    #  - show ip interface brief | exc admin
+
+  tasks:
+   - name: Run the SHOW commands and save output 
+     ios_command:
+       commands: "{{ command_list }}"
+     register: showoutput
+
+   - name: "Put all the files together into one nice text file"
+     template: 
+       src: template.j2 
+       dest: "~/apefne/backups/{{hostvars.localhost.DTG}}/{{ inventory_hostname }}-{{hostvars.localhost.DTG}}-showoutput.txt"
