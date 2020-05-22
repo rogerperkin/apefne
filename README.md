@@ -37,7 +37,7 @@ In the vars_command list simply uncomment the commands you want to run - or add 
     #  - show cdp neighbors detail
 
 
-For more playbooks like this please check out my <a href="https://www.rogerperkin.co.uk/network-automation/ansible/course">Ansible Training for Network Engineers </a>
+For more playbooks like this please check out my blog for more <a href="https://www.rogerperkin.co.uk/network-automation/ansible/">Ansible Training for Network Engineers </a>
 
 
 
